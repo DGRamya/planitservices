@@ -13,18 +13,19 @@ public class RegisterLoginService {
 	@Autowired
 	UserDetailsRepository userDetailsRepository;
 	
-	public int validateLogin(LoginDetails loginDetails) {
+	public boolean validateLogin(LoginDetails loginDetails) {
 		UserDetails userdetails = userDetailsRepository.findById(loginDetails.getEmail()).get();
 		if (userdetails == null) {
 			
 		}
 		if (loginDetails.getPassword().equals(userdetails.getPassword())) {
-			return 1;
+			return true;
 		}
-		return -1;
+		return false;
 	}
 	
-	public void storeUserDetails(RegisterDetails registerDetails) {
+	public int storeUserDetails(RegisterDetails registerDetails) {
+		//TO DO: check if user with same email id exists
 		UserDetails userDetails = new UserDetails();
 		userDetails.setName(registerDetails.getName());
 		userDetails.setEmailid(registerDetails.getEmailId());
@@ -32,6 +33,7 @@ public class RegisterLoginService {
 		userDetails.setContact(registerDetails.getContact());
 		
 		userDetailsRepository.save(userDetails);
+		return 1;
 	}
 
 }

@@ -21,7 +21,7 @@ public class RegisterLoginController implements RegisterLoginApi{
 	@Override
 	public ResponseEntity<String> loginUser(@RequestBody LoginDetails loginDetails) {
 //		System.out.println(loginDetails.getEmail());
-		if (registerLoginService.validateLogin(loginDetails) == -1) {
+		if (!registerLoginService.validateLogin(loginDetails)) {
 			return new ResponseEntity<>("login", HttpStatus.FORBIDDEN);
 		}
 		return new ResponseEntity<>("login", HttpStatus.OK);

@@ -1,5 +1,7 @@
 package com.planit.service;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,13 +16,13 @@ public class RegisterLoginService {
 	UserDetailsRepository userDetailsRepository;
 	
 	public boolean validateLogin(LoginDetails loginDetails) {
-		UserDetails userdetails = userDetailsRepository.findById(loginDetails.getEmail()).get();
-		if (userdetails == null) {
-			
+		Optional<UserDetails> userdetails = userDetailsRepository.findById(loginDetails.getEmail());
+		if (userdetails.isPresent()) {
+			if (loginDetails.getPassword().equals(userdetails.get().getPassword())) {
+				return true;
+			}
 		}
-		if (loginDetails.getPassword().equals(userdetails.getPassword())) {
-			return true;
-		}
+		
 		return false;
 	}
 	

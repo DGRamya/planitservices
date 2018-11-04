@@ -1,10 +1,12 @@
 package com.planit.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.IdClass;
+import javax.persistence.OneToMany;
 
 @Entity
 public class UserDetails {
@@ -17,6 +19,13 @@ public class UserDetails {
 	private String password;
 	
 	private String contact;
+	
+	@OneToMany(
+	        mappedBy = "user",
+	        cascade = CascadeType.ALL,
+	        orphanRemoval = true
+	)
+	private List<EventUserMapping> events = new ArrayList<>();
 
 	public UserKey getUserid() {
 		return userid;

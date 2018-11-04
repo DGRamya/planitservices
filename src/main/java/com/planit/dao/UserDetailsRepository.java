@@ -1,6 +1,7 @@
 package com.planit.dao;
 
 import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -12,4 +13,5 @@ import com.planit.entity.UserKey;
 @Repository
 public interface UserDetailsRepository extends CrudRepository<UserDetails, UserKey>{
 	Optional<UserDetails> findAllByUseridEmailid(String email);
+	Optional<UserDetails> findAllByUseridUserid(UUID userid);
 }

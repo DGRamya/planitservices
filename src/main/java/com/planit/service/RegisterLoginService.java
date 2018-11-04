@@ -18,10 +18,6 @@ public class RegisterLoginService {
 	UserDetailsRepository userDetailsRepository;
 	
 	public boolean validateLogin(LoginDetails loginDetails) {
-		UserKey userKey = new UserKey();
-		userKey.setUserid(UUID.randomUUID());
-		userKey.setEmailid(loginDetails.getEmail());
-//		Optional<UserDetails> userdetails = userDetailsRepository.findById(userKey);
 		Optional<UserDetails> userdetails = userDetailsRepository.findAllByUseridEmailid(loginDetails.getEmail());
 		if (userdetails.isPresent()) {
 			if (loginDetails.getPassword().equals(userdetails.get().getPassword())) {

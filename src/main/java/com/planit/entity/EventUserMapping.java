@@ -28,7 +28,7 @@ public class EventUserMapping {
 	public EventUserMapping(EventDetails event, UserDetails user) {
 		this.event = event;
 		this.user = user;
-		this.id = new EventUserMappingId(user.getUserid().getUserid(), event.getEventid());
+		this.id = new EventUserMappingId(user.getUserid(), event.getEventid());
 	}
 	
 	@Override

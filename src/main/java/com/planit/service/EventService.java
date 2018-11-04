@@ -38,7 +38,7 @@ public class EventService {
 	}
 	
 	private UserDetails getUserDetails(UUID userid) throws NoSuchElementException {
-		Optional<UserDetails> userdetails = userDetailsRepository.findAllByUseridUserid(userid);
+		Optional<UserDetails> userdetails = userDetailsRepository.findById(userid);
 		
 		return userdetails.orElseThrow(
 				()-> new NoSuchElementException("UserId not found")

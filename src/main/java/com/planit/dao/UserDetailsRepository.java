@@ -11,7 +11,8 @@ import com.planit.entity.UserDetails;
 import com.planit.entity.UserKey;
 
 @Repository
-public interface UserDetailsRepository extends CrudRepository<UserDetails, UserKey>{
-	Optional<UserDetails> findAllByUseridEmailid(String email);
-	Optional<UserDetails> findAllByUseridUserid(UUID userid);
+public interface UserDetailsRepository extends CrudRepository<UserDetails, UUID>{
+//	Optional<UserDetails> findAllByUseridEmailid(String email);
+//	Optional<UserDetails> findAllByUseridUserid(UUID userid);
+	Optional<UserDetails> findAllByEmailid(String email);
 }

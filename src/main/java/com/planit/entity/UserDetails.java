@@ -1,32 +1,29 @@
 package com.planit.entity;
 
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.IdClass;
 
 @Entity
 public class UserDetails {
 	
-//	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int userid;
+	@EmbeddedId
+	private UserKey userid;
 	
 	private String name;
-	
-	@Id
-	private String emailid;
 	
 	private String password;
 	
 	private String contact;
 
-	public int getId() {
+	public UserKey getUserid() {
 		return userid;
 	}
 
-	public void setId(int id) {
-		this.userid = id;
+	public void setUserid(UserKey userid) {
+		this.userid = userid;
 	}
 
 	public String getName() {
@@ -35,14 +32,6 @@ public class UserDetails {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public String getEmailid() {
-		return emailid;
-	}
-
-	public void setEmailid(String emailid) {
-		this.emailid = emailid;
 	}
 
 	public String getPassword() {

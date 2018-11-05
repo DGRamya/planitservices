@@ -1,0 +1,14 @@
+language: java
+
+jdk:
+  - oraclejdk8
+
+env:
+ - process.env.CI = false
+  
+services:
+  - postgresql
+
+script:
+ - ./mvnw clean install -B
+

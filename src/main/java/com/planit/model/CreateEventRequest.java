@@ -4,6 +4,12 @@ import java.util.Date;
 import java.util.List;
 
 public class CreateEventRequest {
+	@Override
+	public String toString() {
+		return "CreateEventRequest [eventName=" + eventName + ", eventDate=" + eventDate + ", venue=" + venue
+				+ ", invitationMessage=" + invitationMessage + ", shoppingList=" + shoppingList + ", invitationList="
+				+ invitationList + ", todoList=" + todoList + "]";
+	}
 	private String eventName;
 	private Date eventDate;
 	private String venue;

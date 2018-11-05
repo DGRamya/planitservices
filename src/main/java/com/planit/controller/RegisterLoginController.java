@@ -1,5 +1,8 @@
 package com.planit.controller;
 
+import java.util.Optional;
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,12 +22,13 @@ public class RegisterLoginController implements RegisterLoginApi{
 	RegisterLoginService registerLoginService;
 	
 	@Override
-	public ResponseEntity<String> loginUser(@RequestBody LoginDetails loginDetails) {
+	public ResponseEntity<UUID> loginUser(@RequestBody LoginDetails loginDetails) {
 //		System.out.println(loginDetails.getEmail());
-		if (!registerLoginService.validateLogin(loginDetails)) {
-			return new ResponseEntity<>("login", HttpStatus.FORBIDDEN);
+		Optional<UUID> userid = registerLoginService.validateLogin(loginDetails);
+		if (userid.isPresent()) {
+			return new ResponseEntity<>(userid.get(), HttpStatus.OK);
 		}
-		return new ResponseEntity<>("login", HttpStatus.OK);
+		return new ResponseEntity<>(null, HttpStatus.FORBIDDEN);
 		
 	}
 

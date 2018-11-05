@@ -17,18 +17,19 @@ public class RegisterLoginService {
 	@Autowired
 	UserDetailsRepository userDetailsRepository;
 	
-	public boolean validateLogin(LoginDetails loginDetails) {
+	public Optional<UUID> validateLogin(LoginDetails loginDetails) {
 //		Optional<UserDetails> userdetails = userDetailsRepository.findAllByUseridEmailid(loginDetails.getEmail());
 		Optional<UserDetails> userdetails = userDetailsRepository.findAllByEmailid(loginDetails.getEmail());
 		if (userdetails.isPresent()) {
-			if (loginDetails.getPassword().equals(userdetails.get().getPassword())) {
-				return true;
+			UserDetails userDetails = userdetails.get();
+			if (loginDetails.getPassword().equals(userDetails.getPassword())) {
+				return Optional.of(userDetails.getUserid());
 			}
 		} else {
 			System.out.println("UUID not matching");
 		}
 		
-		return false;
+		return Optional.of(null);
 	}
 	
 	public int storeUserDetails(RegisterDetails registerDetails) {

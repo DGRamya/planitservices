@@ -1,5 +1,7 @@
 package com.planit.api;
 
+import java.util.UUID;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,7 +17,7 @@ import com.planit.model.RegisterDetails;
 public interface RegisterLoginApi {
 	
 	@PostMapping(path = "/login", consumes = "application/json")
-	public ResponseEntity<String> loginUser(@RequestBody LoginDetails loginDetails);
+	public ResponseEntity<UUID> loginUser(@RequestBody LoginDetails loginDetails);
 	
 	@PostMapping(path = "/register", consumes = "application/json")
 	public void registerUser(@RequestBody RegisterDetails registerDetails);

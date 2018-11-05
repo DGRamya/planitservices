@@ -20,6 +20,7 @@ public class createDeleteEventController implements CreateDeleteEventApi{
 	@Override
 	public void createEvent(@RequestParam("userid") UUID userUUId, 
 			@RequestBody CreateEventRequest createEventRequest) {
+		//System.out.println("Prinitng the event object"+createEventRequest.toString());
 		
 		eventService.createEvent(userUUId, createEventRequest);
 

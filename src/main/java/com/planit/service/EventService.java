@@ -1,5 +1,6 @@
 package com.planit.service;
 
+import java.util.ArrayList;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.UUID;
@@ -43,6 +44,27 @@ public class EventService {
 		return userdetails.orElseThrow(
 				()-> new NoSuchElementException("UserId not found")
 				);
+	}
+	
+	public void deleteEvent(UUID eventid) {
+		System.out.println("In deleteEvent -- EventService = "+eventid);
+		eventDetailsRepository.deleteById(eventid);
+	}
+	
+	public ArrayList<EventDetails> getEventsbyUserId(UUID userUUId) {
+		ArrayList<EventDetails> eventList = new ArrayList<>();
+		ArrayList<UUID> eventIdList = new ArrayList<>();
+		ArrayList<EventUserMapping> eventUserList = new ArrayList<>();
+		
+		eventUserList = eventUserMappingRepository.findAllByIdUid(userUUId);
+		if(eventUserList.size() > 0) {
+			for (EventUserMapping eventUser : eventUserList) {
+				eventIdList.add(eventUser.getEvent().getEventid());
+			}
+			eventList = (ArrayList<EventDetails>) eventDetailsRepository.findAllById(eventIdList);
+		}
+		
+		return eventList;
 	}
 	
 	

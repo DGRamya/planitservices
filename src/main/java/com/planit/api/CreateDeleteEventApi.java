@@ -18,4 +18,7 @@ public interface CreateDeleteEventApi {
 	
 	@PostMapping(path = "/create", consumes = "application/json")
 	public void createEvent(@RequestParam("userid") UUID userUUId, @RequestBody CreateEventRequest createEventRequest);
+	
+	@PostMapping(path = "/", consumes = "application/json")
+	public void getEvents(@RequestParam("userid") UUID userUUId);
 }

@@ -1,4 +1,4 @@
-package com.planit.service;
+package com.planit.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -9,6 +9,7 @@ import com.planit.dao.UserDetailsRepository;
 import com.planit.entity.UserDet;
 import com.planit.exception.ResourceNotFoundException;
 import com.planit.security.UserPrincipal;
+import com.planit.service.CurrentUser;
 
 @RestController
 public class UserController {

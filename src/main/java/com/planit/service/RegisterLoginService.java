@@ -45,9 +45,8 @@ public class RegisterLoginService implements UserDetailsService{
 		//TO DO: check if user with same email id exists
 		
 		UserDet userDetails = new UserDet();
-		userDetails.setUserid(UUID.randomUUID());
 		userDetails.setName(registerDetails.getName());
-		userDetails.setEmailid(registerDetails.getEmailId());
+		userDetails.setEmailid(registerDetails.getEmail());
 		userDetails.setPassword(passwordEncoder.encode(registerDetails.getPassword()));
 		userDetails.setContact(registerDetails.getContact());
 		userDetails.setProvider(AuthProvider.local);
@@ -65,8 +64,12 @@ public class RegisterLoginService implements UserDetailsService{
     }
 
 	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+	public UserDetails loadUserByUsername(String emailid) throws UsernameNotFoundException {
 		// TODO Auto-generated method stub
-		return null;
+		UserDet user = userDetailsRepository.findAllByEmailid(emailid).orElseThrow(
+	            () -> new ResourceNotFoundException("User", "id", emailid)
+	        );
+		return UserPrincipal.create(user);
+
 	}
 }

@@ -19,13 +19,13 @@ public class EventUserMapping {
  
     @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("uid")
-    private UserDetails user;
+    private UserDet user;
  
  
     private EventUserMapping() {}
 
 
-	public EventUserMapping(EventDetails event, UserDetails user) {
+	public EventUserMapping(EventDetails event, UserDet user) {
 		this.event = event;
 		this.user = user;
 		this.id = new EventUserMappingId(user.getUserid(), event.getEventid());
@@ -68,12 +68,12 @@ public class EventUserMapping {
 	}
 
 
-	public UserDetails getUser() {
+	public UserDet getUser() {
 		return user;
 	}
 
 
-	public void setUser(UserDetails user) {
+	public void setUser(UserDet user) {
 		this.user = user;
 	}
  

@@ -6,13 +6,16 @@ import java.util.UUID;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.planit.model.AuthProvider;
+
 @Entity
-public class UserDetails {
+public class UserDet {
 	
 	@Id
 	private UUID userid;
@@ -26,6 +29,13 @@ public class UserDetails {
 	
 	private String contact;
 	
+	private String providerId;
+	
+	private String imageUrl;
+	
+	@Enumerated(EnumType.STRING)
+	private AuthProvider provider;
+
 	@OneToMany(
 	        mappedBy = "user",
 	        cascade = CascadeType.ALL,
@@ -73,4 +83,27 @@ public class UserDetails {
 		this.contact = contact;
 	}
 	
+	public String getProviderId() {
+		return providerId;
+	}
+
+	public void setProviderId(String providerId) {
+		this.providerId = providerId;
+	}
+	
+	public String getImageUrl() {
+		return imageUrl;
+	}
+
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
+	}
+	
+	public AuthProvider getProvider() {
+		return provider;
+	}
+
+	public void setProvider(AuthProvider provider) {
+		this.provider = provider;
+	}
 }

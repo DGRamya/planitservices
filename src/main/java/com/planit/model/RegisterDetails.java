@@ -2,7 +2,7 @@ package com.planit.model;
 
 public class RegisterDetails {
 	private String name;
-	private String emailId;
+	private String email;
 	private String password;
 	private String contact;
 	public String getName() {
@@ -11,11 +11,11 @@ public class RegisterDetails {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getEmailId() {
-		return emailId;
+	public String getEmail() {
+		return email;
 	}
-	public void setEmailId(String emailId) {
-		this.emailId = emailId;
+	public void setEmail(String emailId) {
+		this.email = emailId;
 	}
 	public String getPassword() {
 		return password;

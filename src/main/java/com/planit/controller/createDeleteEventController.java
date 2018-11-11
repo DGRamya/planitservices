@@ -1,14 +1,16 @@
 package com.planit.controller;
 
-import java.util.UUID;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.planit.api.CreateDeleteEventApi;
+import com.planit.model.ApiResponse;
 import com.planit.model.CreateEventRequest;
+import com.planit.security.UserPrincipal;
+import com.planit.service.CurrentUser;
 import com.planit.service.EventService;
 
 @RestController
@@ -18,12 +20,14 @@ public class createDeleteEventController implements CreateDeleteEventApi{
 	EventService eventService;
 
 	@Override
-	public void createEvent(@RequestParam("userid") UUID userUUId, 
+	@PreAuthorize("hasRole('USER')")
+	public ResponseEntity<?> createEvent(@CurrentUser UserPrincipal userPrincipal, 
 			@RequestBody CreateEventRequest createEventRequest) {
-		//System.out.println("Prinitng the event object"+createEventRequest.toString());
+		System.out.println("Prinitng the event object"+createEventRequest.toString());
 		
-		eventService.createEvent(userUUId, createEventRequest);
-
+		eventService.createEvent(userPrincipal.getId(), createEventRequest);
+		System.out.println("event created");
+		return ResponseEntity.ok(new ApiResponse(true, "Event created Successfully"));
 	}
 
 }

@@ -54,6 +54,7 @@ public class RegisterLoginController implements RegisterLoginApi{
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 
 		String token = tokenProvider.createToken(authentication);
+		System.out.println("printing token "+token);
 		return ResponseEntity.ok(new AuthResponse(token));
 
 	}
@@ -62,7 +63,7 @@ public class RegisterLoginController implements RegisterLoginApi{
 	public ResponseEntity<?> registerUser(@RequestBody RegisterDetails registerDetails) {
 //		System.out.println(registerDetails.getEmailId());
 		registerLoginService.storeUserDetails(registerDetails);
-		return ResponseEntity.ok(new ApiResponse(true, "User registered successfully@"));
+		return ResponseEntity.ok(new ApiResponse(true, "User registered successfully"));
 	}
 
 }

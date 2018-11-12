@@ -43,6 +43,7 @@ public class createDeleteEventController implements CreateDeleteEventApi{
 	}
 
 	@Override
+	@PreAuthorize("hasRole('USER')")
 	public ResponseEntity<?> deleteEvent(UserPrincipal userPrincipal, UUID eventUUId) {
 		
 		eventService.deleteEventbyId(eventUUId);

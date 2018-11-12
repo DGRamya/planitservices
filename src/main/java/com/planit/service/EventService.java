@@ -1,5 +1,6 @@
 package com.planit.service;
 
+import java.util.ArrayList;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.UUID;
@@ -14,6 +15,8 @@ import com.planit.entity.EventDetails;
 import com.planit.entity.EventUserMapping;
 import com.planit.entity.UserDet;
 import com.planit.model.CreateEventRequest;
+import com.planit.model.Event;
+import com.planit.model.EventsList;
 
 @Service
 public class EventService {
@@ -43,6 +46,32 @@ public class EventService {
 		return userdetails.orElseThrow(
 				()-> new NoSuchElementException("UserId not found")
 				);
+	}
+	
+	public void deleteEventbyId(UUID eventid) {
+		System.out.println("In deleteEvent -- EventService = "+eventid);
+		eventDetailsRepository.deleteById(eventid);
+	}
+	
+	public EventsList getEventsbyUserId(UUID userUUId) {
+		ArrayList<EventDetails> eventList = new ArrayList<>();
+		ArrayList<UUID> eventIdList = new ArrayList<>();
+		ArrayList<EventUserMapping> eventUserList = new ArrayList<>();
+		
+		eventUserList = eventUserMappingRepository.findAllByIdUid(userUUId);
+		if(eventUserList.size() > 0) {
+			for (EventUserMapping eventUser : eventUserList) {
+				eventIdList.add(eventUser.getEvent().getEventid());
+			}
+			eventList = (ArrayList<EventDetails>) eventDetailsRepository.findAllById(eventIdList);
+		}
+		EventsList events = new EventsList();
+		for (EventDetails event : eventList) {
+			System.out.println(event.getEventname());
+			events.addEvent(new Event(event.getEventid(), event.getEventname(), event.getVenue()));
+		}
+		
+		return events;
 	}
 	
 	

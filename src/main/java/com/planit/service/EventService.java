@@ -1,13 +1,22 @@
 package com.planit.service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.UUID;
 
+import org.hibernate.proxy.HibernateProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
+import com.google.gson.reflect.TypeToken;
 import com.planit.dao.EventDetailsRepository;
 import com.planit.dao.EventUserMappingRepository;
 import com.planit.dao.UserDetailsRepository;
@@ -63,6 +72,12 @@ public class EventService {
 			}
 			eventList = (ArrayList<EventDetails>) eventDetailsRepository.findAllById(eventIdList);
 		}
+		
+		/*Gson gson = new Gson();
+		JsonElement element = gson.toJsonTree(eventList, new TypeToken<List<EventDetails>>() {}.getType());
+		System.out.println("element.getAsJsonArray() --"+element.getAsJsonArray().toString());*/
+		
+		System.out.println(eventList);
 		
 		return eventList;
 	}

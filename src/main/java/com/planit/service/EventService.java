@@ -55,7 +55,7 @@ public class EventService {
 				);
 	}
 	
-	public void deleteEvent(UUID eventid) {
+	public void deleteEventbyId(UUID eventid) {
 		System.out.println("In deleteEvent -- EventService = "+eventid);
 		eventDetailsRepository.deleteById(eventid);
 	}

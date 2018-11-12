@@ -50,4 +50,12 @@ public class createDeleteEventController implements CreateDeleteEventApi{
 		
 	}
 
+	@Override
+	public ResponseEntity<?> deleteEvent(UserPrincipal userPrincipal, UUID eventUUId) {
+		
+		eventService.deleteEventbyId(eventUUId);
+		
+		return ResponseEntity.ok(new ApiResponse(true, "Event deleted Successfully"));
+	}
+
 }

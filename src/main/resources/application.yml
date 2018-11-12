@@ -29,7 +29,7 @@ spring:
     datasource:
         url: jdbc:postgresql://localhost:5432/planit
         username: postgres
-        password: root
+        password: password
 
     jpa:
         show-sql: true

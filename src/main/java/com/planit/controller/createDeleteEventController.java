@@ -7,9 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.planit.api.CreateDeleteEventApi;
+import com.planit.api.DeleteEventRequest;
 import com.planit.model.ApiResponse;
 import com.planit.model.CreateEventRequest;
 import com.planit.model.EventsList;
@@ -44,9 +46,9 @@ public class createDeleteEventController implements CreateDeleteEventApi{
 
 	@Override
 	@PreAuthorize("hasRole('USER')")
-	public ResponseEntity<?> deleteEvent(UserPrincipal userPrincipal, UUID eventUUId) {
-		
-		eventService.deleteEventbyId(eventUUId);
+	public ResponseEntity<?> deleteEvent(@CurrentUser UserPrincipal userPrincipal, @RequestBody DeleteEventRequest deleteEventRequest) {
+		System.out.println("eventUUId :: " + deleteEventRequest.getEventId());
+		eventService.deleteEventbyId(deleteEventRequest.getEventId());
 		
 		return ResponseEntity.ok(new ApiResponse(true, "Event deleted Successfully"));
 	}

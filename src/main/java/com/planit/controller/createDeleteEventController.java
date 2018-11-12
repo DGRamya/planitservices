@@ -1,7 +1,7 @@
 package com.planit.controller;
 
 
-import java.util.ArrayList;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.planit.api.CreateDeleteEventApi;
-import com.planit.entity.EventDetails;
 import com.planit.model.ApiResponse;
 import com.planit.model.CreateEventRequest;
 import com.planit.model.EventsList;

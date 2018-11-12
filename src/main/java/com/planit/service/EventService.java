@@ -68,7 +68,7 @@ public class EventService {
 		EventsList events = new EventsList();
 		for (EventDetails event : eventList) {
 			System.out.println(event.getEventname());
-			events.addEvent(new Event(event.getEventname(), event.getVenue()));
+			events.addEvent(new Event(event.getEventid(), event.getEventname(), event.getVenue()));
 		}
 		
 		return events;

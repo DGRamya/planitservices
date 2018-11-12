@@ -68,4 +68,4 @@ app:
     # redirectUri mentioned by the client in the /oauth2/authorize request.
     # We're not using cookies because they won't work well in mobile clients.
     authorizedRedirectUris:
-      - http://localhost:3000/oauth2/redirect
+      - https://planyourevent.herokuapp.com/oauth2/redirect

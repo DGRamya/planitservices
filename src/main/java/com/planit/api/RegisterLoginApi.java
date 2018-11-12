@@ -13,12 +13,12 @@ import com.planit.model.RegisterDetails;
 
 
 @CrossOrigin
-@RequestMapping
+@RequestMapping("/auth")
 public interface RegisterLoginApi {
 	
 	@PostMapping(path = "/login", consumes = "application/json")
-	public ResponseEntity<UUID> loginUser(@RequestBody LoginDetails loginDetails);
+	public ResponseEntity<?> loginUser(@RequestBody LoginDetails loginDetails);
 	
-	@PostMapping(path = "/register", consumes = "application/json")
-	public void registerUser(@RequestBody RegisterDetails registerDetails);
+	@PostMapping(path = "/signup", consumes = "application/json")
+	public ResponseEntity<?> registerUser(@RequestBody RegisterDetails registerDetails);
 }

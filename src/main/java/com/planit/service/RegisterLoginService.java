@@ -4,24 +4,33 @@ import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.planit.dao.UserDetailsRepository;
-import com.planit.entity.UserDetails;
-import com.planit.entity.UserKey;
+import com.planit.entity.UserDet;
+import com.planit.exception.ResourceNotFoundException;
+import com.planit.model.AuthProvider;
 import com.planit.model.LoginDetails;
 import com.planit.model.RegisterDetails;
+import com.planit.security.UserPrincipal;
 
 @Service
-public class RegisterLoginService {
+public class RegisterLoginService implements UserDetailsService{
 	@Autowired
 	UserDetailsRepository userDetailsRepository;
 	
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+	
 	public Optional<UUID> validateLogin(LoginDetails loginDetails) {
 //		Optional<UserDetails> userdetails = userDetailsRepository.findAllByUseridEmailid(loginDetails.getEmail());
-		Optional<UserDetails> userdetails = userDetailsRepository.findAllByEmailid(loginDetails.getEmail());
+		Optional<UserDet> userdetails = userDetailsRepository.findAllByEmailid(loginDetails.getEmail());
 		if (userdetails.isPresent()) {
-			UserDetails userDetails = userdetails.get();
+			UserDet userDetails = userdetails.get();
 			if (loginDetails.getPassword().equals(userDetails.getPassword())) {
 				return Optional.of(userDetails.getUserid());
 			}
@@ -35,15 +44,32 @@ public class RegisterLoginService {
 	public int storeUserDetails(RegisterDetails registerDetails) {
 		//TO DO: check if user with same email id exists
 		
-		UserDetails userDetails = new UserDetails();
-		userDetails.setUserid(UUID.randomUUID());
+		UserDet userDetails = new UserDet();
 		userDetails.setName(registerDetails.getName());
-		userDetails.setEmailid(registerDetails.getEmailId());
-		userDetails.setPassword(registerDetails.getPassword());
+		userDetails.setEmailid(registerDetails.getEmail());
+		userDetails.setPassword(passwordEncoder.encode(registerDetails.getPassword()));
 		userDetails.setContact(registerDetails.getContact());
+		userDetails.setProvider(AuthProvider.local);
 		
 		userDetailsRepository.save(userDetails);
 		return 1;
 	}
+	
+	public UserDetails loadUserById(UUID id) {
+        UserDet user = userDetailsRepository.findById(id).orElseThrow(
+            () -> new ResourceNotFoundException("User", "id", id)
+        );
 
+        return UserPrincipal.create(user);
+    }
+
+	@Override
+	public UserDetails loadUserByUsername(String emailid) throws UsernameNotFoundException {
+		// TODO Auto-generated method stub
+		UserDet user = userDetailsRepository.findAllByEmailid(emailid).orElseThrow(
+	            () -> new ResourceNotFoundException("User", "id", emailid)
+	        );
+		return UserPrincipal.create(user);
+
+	}
 }

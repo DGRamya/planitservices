@@ -1,11 +1,13 @@
 package com.planit.controller;
 
+
 import java.util.ArrayList;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.google.gson.Gson;
@@ -14,7 +16,10 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.planit.api.CreateDeleteEventApi;
 import com.planit.entity.EventDetails;
+import com.planit.model.ApiResponse;
 import com.planit.model.CreateEventRequest;
+import com.planit.security.UserPrincipal;
+import com.planit.service.CurrentUser;
 import com.planit.service.EventService;
 
 @RestController
@@ -24,25 +29,23 @@ public class createDeleteEventController implements CreateDeleteEventApi{
 	EventService eventService;
 
 	@Override
-	public void createEvent(@RequestParam("userid") UUID userUUId, 
+	@PreAuthorize("hasRole('USER')")
+	public ResponseEntity<?> createEvent(@CurrentUser UserPrincipal userPrincipal, 
 			@RequestBody CreateEventRequest createEventRequest) {
-		//System.out.println("Prinitng the event object"+createEventRequest.toString());
+		System.out.println("Prinitng the event object"+createEventRequest.toString());
 		
-		eventService.createEvent(userUUId, createEventRequest);
-
+		eventService.createEvent(userPrincipal.getId(), createEventRequest);
+		System.out.println("event created");
+		return ResponseEntity.ok(new ApiResponse(true, "Event created Successfully"));
 	}
 	
-	public void deleteEvent(@RequestParam("eventid") UUID eventUUId) {
-		System.out.println("in delete event!!"+eventUUId);
-		eventService.deleteEvent(eventUUId);
-	}
-	
-	public JsonArray getEvents(@RequestParam("userid") UUID userUUId) {
+	@Override
+	public ResponseEntity<?> getEvents(@CurrentUser UserPrincipal userPrincipal) {
 		ArrayList<EventDetails> eventList = new ArrayList<>();
 		JsonObject jsonObject;
 		JsonArray eventJsonArray = new JsonArray();
 		
-		eventList = eventService.getEventsbyUserId(userUUId);
+		eventList = eventService.getEventsbyUserId(userPrincipal.getId());
 		
 		for (EventDetails event : eventList) {
 			jsonObject = new JsonObject();
@@ -51,9 +54,7 @@ public class createDeleteEventController implements CreateDeleteEventApi{
 			jsonObject.addProperty("venue", event.getVenue());
 			eventJsonArray.add(jsonObject);
 		}
-		System.out.println("ja -- "+eventJsonArray.toString());
 		
-		return eventJsonArray;
 	}
 
 }

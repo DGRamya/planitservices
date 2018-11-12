@@ -41,6 +41,7 @@ public class createDeleteEventController implements CreateDeleteEventApi{
 	}
 	
 	@Override
+	@PreAuthorize("hasRole('USER')")
 	public List<EventDetails> getEvents(@CurrentUser UserPrincipal userPrincipal) {
 		ArrayList<EventDetails> eventList = new ArrayList<>();
 		

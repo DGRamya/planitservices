@@ -1,5 +1,7 @@
 package com.planit.api;
 
+import java.util.List;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.google.gson.JsonArray;
+import com.planit.entity.EventDetails;
 import com.planit.model.CreateEventRequest;
 import com.planit.security.UserPrincipal;
 import com.planit.service.CurrentUser;
@@ -24,6 +27,6 @@ public interface CreateDeleteEventApi {
 	public ResponseEntity<?> createEvent(@CurrentUser UserPrincipal userPrincipal, @RequestBody CreateEventRequest createEventRequest);
 	
 	@PostMapping(path = "/", consumes = "application/json")
-	public ResponseEntity<?> getEvents(@CurrentUser UserPrincipal userPrincipal);
+	public List<EventDetails> getEvents(@CurrentUser UserPrincipal userPrincipal);
 	
 }

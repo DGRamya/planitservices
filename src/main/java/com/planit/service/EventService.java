@@ -73,11 +73,9 @@ public class EventService {
 			eventList = (ArrayList<EventDetails>) eventDetailsRepository.findAllById(eventIdList);
 		}
 		
-		/*Gson gson = new Gson();
-		JsonElement element = gson.toJsonTree(eventList, new TypeToken<List<EventDetails>>() {}.getType());
-		System.out.println("element.getAsJsonArray() --"+element.getAsJsonArray().toString());*/
-		
-		System.out.println(eventList);
+		for (EventDetails event : eventList) {
+			System.out.println(event.getEventname());
+		}
 		
 		return eventList;
 	}

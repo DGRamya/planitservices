@@ -2,6 +2,7 @@ package com.planit.controller;
 
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,20 +41,12 @@ public class createDeleteEventController implements CreateDeleteEventApi{
 	}
 	
 	@Override
-	public ResponseEntity<?> getEvents(@CurrentUser UserPrincipal userPrincipal) {
+	public List<EventDetails> getEvents(@CurrentUser UserPrincipal userPrincipal) {
 		ArrayList<EventDetails> eventList = new ArrayList<>();
-		JsonObject jsonObject;
-		JsonArray eventJsonArray = new JsonArray();
 		
 		eventList = eventService.getEventsbyUserId(userPrincipal.getId());
 		
-		for (EventDetails event : eventList) {
-			jsonObject = new JsonObject();
-			jsonObject.addProperty("eventid", event.getEventid().toString());
-			jsonObject.addProperty("eventname", event.getEventname());
-			jsonObject.addProperty("venue", event.getVenue());
-			eventJsonArray.add(jsonObject);
-		}
+		return eventList;
 		
 	}
 

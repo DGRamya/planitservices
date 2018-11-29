@@ -51,4 +51,12 @@ public class createDeleteEventController implements CreateDeleteEventApi{
 		return ResponseEntity.ok(new ApiResponse(true, "Event deleted Successfully"));
 	}
 
+	@Override
+	@PreAuthorize("hasRole('USER')")
+	public ResponseEntity<?> sendMail(@CurrentUser UserPrincipal userPrincipal) {
+		// TODO Auto-generated method stub
+		System.out.println("Hi");
+		return null;
+	}
+
 }

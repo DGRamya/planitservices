@@ -41,7 +41,20 @@ spring:
                 dialect: org.hibernate.dialect.PostgreSQLDialect
                 temp:
                     use_jdbc_metadata_defaults: false
-
+    
+    mail:
+        host: smtp.gmail.com
+        port: 587
+        username: planit.p532@gmail.com
+        password: Planyourevent@p532
+        properties:
+            mail:
+               smtp:
+                 auth: true
+                 starttls:
+                    enable: true
+                    required: true
+                 
     security:
       oauth2:
         client:

@@ -48,9 +48,13 @@ public class EventService {
 				);
 	}
 	
-	public void deleteEventbyId(UUID eventid) {
+	public EventsList deleteEventbyId(UUID eventid,UUID userUUId) {
+		EventsList events = new EventsList();
 		System.out.println("In deleteEvent -- EventService = "+eventid);
 		eventDetailsRepository.deleteById(eventid);
+		events = getEventsbyUserId(userUUId);
+		
+		return events;
 	}
 	
 	public EventsList getEventsbyUserId(UUID userUUId) {
@@ -59,6 +63,8 @@ public class EventService {
 		ArrayList<EventUserMapping> eventUserList = new ArrayList<>();
 		
 		eventUserList = eventUserMappingRepository.findAllByIdUid(userUUId);
+		
+		
 		if(eventUserList.size() > 0) {
 			for (EventUserMapping eventUser : eventUserList) {
 				eventIdList.add(eventUser.getEvent().getEventid());

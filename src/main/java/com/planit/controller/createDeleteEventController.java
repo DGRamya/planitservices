@@ -46,11 +46,12 @@ public class createDeleteEventController implements CreateDeleteEventApi{
 
 	@Override
 	@PreAuthorize("hasRole('USER')")
-	public ResponseEntity<?> deleteEvent(@CurrentUser UserPrincipal userPrincipal, @RequestBody DeleteEventRequest deleteEventRequest) {
+	public EventsList deleteEvent(@CurrentUser UserPrincipal userPrincipal, @RequestBody DeleteEventRequest deleteEventRequest) {
 		System.out.println("eventUUId :: " + deleteEventRequest.getEventId());
-		eventService.deleteEventbyId(deleteEventRequest.getEventId());
+		EventsList events = eventService.deleteEventbyId(deleteEventRequest.getEventId(),userPrincipal.getId());
 		
-		return ResponseEntity.ok(new ApiResponse(true, "Event deleted Successfully"));
+		//return ResponseEntity.ok(new ApiResponse(true, "Event deleted Successfully"));
+		return events;
 	}
 
 }

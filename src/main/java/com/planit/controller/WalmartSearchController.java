@@ -18,7 +18,8 @@ public class WalmartSearchController implements WalmartSearchApi{
 	@PreAuthorize("hasRole('USER')")
 	public String getEvents(@CurrentUser UserPrincipal userPrincipal, @RequestBody Item item) {
 		System.out.println(item.getItem());
-		final String uri = "http://api.walmartlabs.com/v1/search?apiKey=4tz6q3hqa6xdnn6j7u6cgq8t&query="+item.getItem();
+		final String uri = "http://api.walmartlabs.com/v1/search?apiKey=4tz6q3hqa6xdnn6j7u6cgq8t&query="+item.getItem()
+							+"&sort="+item.getSort()+"&numItems="+item.getNumItems();
 
 		RestTemplate restTemplate = new RestTemplate();
 		String result = restTemplate.getForObject(uri, String.class);

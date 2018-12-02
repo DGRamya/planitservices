@@ -27,6 +27,9 @@ public class Event {
 		this.eventName = eventName;
 		this.venue = venue;
 	}
+	public Event() {
+		
+	}
 	public UUID getEventId() {
 		return eventId;
 	}

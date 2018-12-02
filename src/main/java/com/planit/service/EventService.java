@@ -36,8 +36,6 @@ public class EventService {
 		EventUserMapping eventUserMapping = new EventUserMapping(eventDetails,userdetails);
 		eventDetailsRepository.save(eventDetails);
 		eventUserMappingRepository.save(eventUserMapping);
-		
-		
 	}
 	
 	private UserDet getUserDetails(UUID userid) throws NoSuchElementException {
@@ -45,12 +43,24 @@ public class EventService {
 		
 		return userdetails.orElseThrow(
 				()-> new NoSuchElementException("UserId not found")
-				);
+		);
 	}
 	
-	public void deleteEventbyId(UUID eventid) {
+	public EventsList deleteEventbyId(UUID eventid,UUID userUUId) {
+		EventsList events = new EventsList();
 		System.out.println("In deleteEvent -- EventService = "+eventid);
 		eventDetailsRepository.deleteById(eventid);
+		events = getEventsbyUserId(userUUId);
+		
+		return events;
+	}
+	
+	public EventDetails getEventDetails(UUID eventid) {
+		System.out.println("EventService --- getEventDetails :: "+eventid.toString());
+		Optional<EventDetails> eventDetails = eventDetailsRepository.findById(eventid);
+		return eventDetails.orElseThrow(
+				()-> new NoSuchElementException("EventId not found")
+		);
 	}
 	
 	public EventsList getEventsbyUserId(UUID userUUId) {
@@ -59,6 +69,8 @@ public class EventService {
 		ArrayList<EventUserMapping> eventUserList = new ArrayList<>();
 		
 		eventUserList = eventUserMappingRepository.findAllByIdUid(userUUId);
+		
+		
 		if(eventUserList.size() > 0) {
 			for (EventUserMapping eventUser : eventUserList) {
 				eventIdList.add(eventUser.getEvent().getEventid());

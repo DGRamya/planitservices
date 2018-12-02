@@ -12,8 +12,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.planit.api.CreateDeleteEventApi;
 import com.planit.api.DeleteEventRequest;
+import com.planit.api.GetEventRequest;
+import com.planit.entity.EventDetails;
 import com.planit.model.ApiResponse;
 import com.planit.model.CreateEventRequest;
+import com.planit.model.Event;
 import com.planit.model.EventsList;
 import com.planit.security.UserPrincipal;
 import com.planit.service.CurrentUser;
@@ -46,19 +49,20 @@ public class createDeleteEventController implements CreateDeleteEventApi{
 
 	@Override
 	@PreAuthorize("hasRole('USER')")
-	public ResponseEntity<?> deleteEvent(@CurrentUser UserPrincipal userPrincipal, @RequestBody DeleteEventRequest deleteEventRequest) {
+	public EventsList deleteEvent(@CurrentUser UserPrincipal userPrincipal, @RequestBody DeleteEventRequest deleteEventRequest) {
 		System.out.println("eventUUId :: " + deleteEventRequest.getEventId());
-		eventService.deleteEventbyId(deleteEventRequest.getEventId());
+		EventsList events = eventService.deleteEventbyId(deleteEventRequest.getEventId(),userPrincipal.getId());
 		
-		return ResponseEntity.ok(new ApiResponse(true, "Event deleted Successfully"));
+		//return ResponseEntity.ok(new ApiResponse(true, "Event deleted Successfully"));
+		return events;
 	}
 
 	@Override
-	@PreAuthorize("hasRole('USER')")
-	public ResponseEntity<?> sendMail(@CurrentUser UserPrincipal userPrincipal) {
+	public EventDetails getEventDetails(@CurrentUser UserPrincipal userPrincipal,@RequestBody GetEventRequest getEventRequest) {
 		// TODO Auto-generated method stub
-		System.out.println("Hi");
-		return null;
+		System.out.println("Controller -- geteventdetails -- "+getEventRequest.getEventId());
+		EventDetails event = eventService.getEventDetails(getEventRequest.getEventId());
+		return event;
 	}
 
 }

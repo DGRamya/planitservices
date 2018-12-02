@@ -1,8 +1,10 @@
 package com.planit.dao;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import com.planit.entity.EventUserMapping;

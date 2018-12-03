@@ -22,10 +22,14 @@ public class SendNotificationService {
 		String emailId = emailDetail.getEmailId().toString();  
 		String[] sendTo = emailId.substring(1, emailId.length()-1).split(",");
 		SimpleMailMessage mail = new SimpleMailMessage();
+		System.out.println("sendEmail :: " + sendTo);
+		for(String s : sendTo) {
+			System.out.println("s :: " + s);
+		}
 		mail.setTo(sendTo);
 		mail.setFrom("planit.p532@gmail.com");
-		mail.setSubject("You are invited!");
-		mail.setText("You are invited!!!");
+		mail.setSubject(emailDetail.getEmailSubject());
+		mail.setText(emailDetail.getEmailContent());
 		javaMailSender.send(mail);
 		System.out.println("mail sent succesfully!");
 	}

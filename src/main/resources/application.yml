@@ -27,15 +27,15 @@
 
 spring:
     datasource:
-        url: jdbc:postgresql://ec2-54-225-68-133.compute-1.amazonaws.com:5432/d13s8bppsu9o9o
-        username: whltgfbgijgtbu
-        password: 7e7c6dc71d5c26a26e20401a70e8733131be797de8871dfebf78ec9b1251920c
+        url: jdbc:postgresql://localhost:5432/planit
+        username: postgres
+        password: root
 
     jpa:
         show-sql: true
         database-platform: org.hibernate.dialect.PostgreSQL9Dialect
         hibernate:
-            ddl-auto: create
+            ddl-auto: update
         properties:
             hibernate:
                 dialect: org.hibernate.dialect.PostgreSQLDialect

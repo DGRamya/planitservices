@@ -16,8 +16,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.google.gson.JsonArray;
 import com.planit.entity.EventDetails;
 import com.planit.model.CreateEventRequest;
+import com.planit.model.DeleteEventRequest;
 import com.planit.model.Event;
 import com.planit.model.EventsList;
+import com.planit.model.GetEventRequest;
 import com.planit.security.UserPrincipal;
 import com.planit.service.CurrentUser;
 
@@ -37,4 +39,8 @@ public interface CreateDeleteEventApi {
 	
 	@PostMapping(path = "/eventdetails", produces = "application/json")
 	public EventDetails getEventDetails(@CurrentUser UserPrincipal userPrincipal, @RequestBody GetEventRequest getEventRequest);
+	
+	@PostMapping(path = "/update", produces = "application/json")
+	public ResponseEntity<?> updateEvent(@CurrentUser UserPrincipal userPrincipal, @RequestBody EventDetails eventDetails);
+	
 }

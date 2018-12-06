@@ -86,6 +86,15 @@
 			<version>2.9.6</version>
 		</dependency>
 		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-mail</artifactId>
+		</dependency>
+		<dependency>
+		   <groupId>com.googlecode.json-simple</groupId>
+		   <artifactId>json-simple</artifactId>
+		   <version>1.1.1</version>
+		</dependency>
+		<dependency>
                     <groupId>org.eclipse.jdt</groupId>
                     <artifactId>ecj</artifactId>
                     <version>3.13.101</version>

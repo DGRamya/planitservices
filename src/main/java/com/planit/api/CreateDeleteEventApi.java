@@ -36,7 +36,7 @@ public interface CreateDeleteEventApi {
 	
 	@PostMapping(path = "/delete")
 	public EventsList deleteEvent(@CurrentUser UserPrincipal userPrincipal, @RequestBody DeleteEventRequest deleteEventRequest);
-	
+
 	@PostMapping(path = "/eventdetails", produces = "application/json")
 	public EventDetails getEventDetails(@CurrentUser UserPrincipal userPrincipal, @RequestBody GetEventRequest getEventRequest);
 	

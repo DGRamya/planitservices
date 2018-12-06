@@ -2,6 +2,7 @@ package com.planit.model;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 public class CreateEventRequest {
 	@Override
@@ -14,11 +15,14 @@ public class CreateEventRequest {
 	private Date eventDate;
 	private String venue;
 	private String invitationMessage;
-	private List<String> shoppingList;
-	private List<String> invitationList;
-	private List<String> todoList;
+	private Map<String, Boolean> shoppingList;
+	private Map<String, Boolean> invitationList;
+	private Map<String, Boolean> todoList;
 	public String getEventName() {
 		return eventName;
+	}
+	public Map<String, Boolean> getShoppingList() {
+		return shoppingList;
 	}
 	public Date getEventDate() {
 		return eventDate;
@@ -29,13 +33,10 @@ public class CreateEventRequest {
 	public String getInvitationMessage() {
 		return invitationMessage;
 	}
-	public List<String> getShoppingList() {
-		return shoppingList;
-	}
-	public List<String> getInvitationList() {
+	public Map<String, Boolean> getInvitationList() {
 		return invitationList;
 	}
-	public List<String> getTodoList() {
+	public Map<String, Boolean> getTodoList() {
 		return todoList;
 	}
 }

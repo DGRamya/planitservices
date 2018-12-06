@@ -1,4 +1,4 @@
-package com.planit.api;
+package com.planit.model;
 
 import org.json.simple.JSONArray;
 import org.springframework.stereotype.Component;

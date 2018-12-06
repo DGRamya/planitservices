@@ -86,5 +86,10 @@ public class EventService {
 		return events;
 	}
 	
+	public boolean updateEventDetails(EventDetails eventDetails) {
+		eventDetailsRepository.save(eventDetails);
+		return true;
+	}
+	
 	
 }

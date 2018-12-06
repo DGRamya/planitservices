@@ -7,13 +7,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.planit.api.CreateDeleteEventApi;
-import com.planit.api.DeleteEventRequest;
-import com.planit.api.GetEventRequest;
 import com.planit.entity.EventDetails;
 import com.planit.model.ApiResponse;
 import com.planit.model.CreateEventRequest;
+import com.planit.model.DeleteEventRequest;
 import com.planit.model.Event;
 import com.planit.model.EventsList;
+import com.planit.model.GetEventRequest;
 import com.planit.security.UserPrincipal;
 import com.planit.service.CurrentUser;
 import com.planit.service.EventService;
@@ -59,5 +59,12 @@ public class createDeleteEventController implements CreateDeleteEventApi{
 		System.out.println("Controller -- geteventdetails -- "+getEventRequest.getEventId());
 		EventDetails event = eventService.getEventDetails(getEventRequest.getEventId());
 		return event;
+	}
+
+	@Override
+	@PreAuthorize("hasRole('USER')")
+	public ResponseEntity<?> updateEvent(@CurrentUser UserPrincipal userPrincipal, @RequestBody EventDetails eventDetails) {
+		eventService.updateEventDetails(eventDetails);
+		return ResponseEntity.ok(new ApiResponse(true, "Event updated Successfully"));
 	}
 }

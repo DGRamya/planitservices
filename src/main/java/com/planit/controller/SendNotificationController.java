@@ -7,9 +7,9 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.planit.api.EmailDetail;
 import com.planit.api.SendEmailApi;
 import com.planit.model.ApiResponse;
+import com.planit.model.EmailDetail;
 import com.planit.security.UserPrincipal;
 import com.planit.service.CurrentUser;
 import com.planit.service.SendNotificationService;

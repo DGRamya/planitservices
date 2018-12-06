@@ -3,6 +3,7 @@ package com.planit.entity;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.persistence.CascadeType;
@@ -27,10 +28,10 @@ public class EventDetails {
 	private String invitationMessage;
 	
 	@ElementCollection
-	private List<String> invitationList;
+	private Map<String, Boolean> invitationList;
 	
 	@ElementCollection
-	private List<String> shoppingList;
+	private Map<String, Boolean> shoppingList;
 	
 	@OneToMany(
 	        mappedBy = "event",
@@ -45,8 +46,8 @@ public class EventDetails {
 	}
 
 	public EventDetails(UUID eventid, String eventname, Date eventdate, String venue, String invitationMessage,
-			List<String> invitationList, List<String> shoppingList,
-			List<String> todoList) {
+			Map<String, Boolean> invitationList, Map<String, Boolean> shoppingList,
+			Map<String, Boolean> todoList) {
 		super();
 		this.eventid = eventid;
 		this.eventname = eventname;
@@ -79,18 +80,18 @@ public class EventDetails {
 		return invitationMessage;
 	}
 
-	public List<String> getInvitationList() {
+	public Map<String, Boolean> getInvitationList() {
 		return invitationList;
 	}
 
-	public List<String> getShoppingList() {
+	public Map<String, Boolean> getShoppingList() {
 		return shoppingList;
 	}
 
-	public List<String> getTodoList() {
+	public Map<String, Boolean> getTodoList() {
 		return todoList;
 	}
 
 	@ElementCollection
-	private List<String> todoList;
+	private Map<String, Boolean> todoList;
 }

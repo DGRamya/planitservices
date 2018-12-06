@@ -1,8 +1,8 @@
-package com.planit.api;
+package com.planit.model;
 
 import java.util.UUID;
 
-public class GetEventRequest {
+public class DeleteEventRequest {
 	private UUID eventId;
 
 	public UUID getEventId() {
@@ -12,4 +12,5 @@ public class GetEventRequest {
 	public void setEventId(UUID eventId) {
 		this.eventId = eventId;
 	}
+
 }

@@ -8,6 +8,24 @@ public class EmailDetail {
 	private JSONArray emailId;
 	private String emailContent = "You are invited";
 	private String emailSubject = "You are invited";
+	private String emailVenue = "";
+	private String emailDate = "";
+	
+	public String getEmailVenue() {
+		return emailVenue;
+	}
+
+	public void setEmailVenue(String emailVenue) {
+		this.emailVenue = emailVenue;
+	}
+
+	public String getEmailDate() {
+		return emailDate;
+	}
+
+	public void setEmailDate(String emailDate) {
+		this.emailDate = emailDate;
+	}
 
 	public String getEmailSubject() {
 		return emailSubject;

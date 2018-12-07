@@ -28,9 +28,13 @@ public class SendNotificationService {
 			System.out.println("s :: " + s);
 		}
 		mail.setTo(sendTo);
+		String content = emailDetail.getEmailContent();
+		content = content + "\n" + 
+		"Where: " + emailDetail.getEmailVenue() + "\n" +
+				"When: " + emailDetail.getEmailDate(); 
 		mail.setFrom("planit.p532@gmail.com");
 		mail.setSubject(emailDetail.getEmailSubject());
-		mail.setText(emailDetail.getEmailContent());
+		mail.setText(content);
 		javaMailSender.send(mail);
 		System.out.println("mail sent succesfully!");
 	}

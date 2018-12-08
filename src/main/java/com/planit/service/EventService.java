@@ -1,6 +1,8 @@
 package com.planit.service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.UUID;
@@ -17,6 +19,7 @@ import com.planit.entity.UserDet;
 import com.planit.model.CreateEventRequest;
 import com.planit.model.Event;
 import com.planit.model.EventsList;
+import com.planit.model.AddOrganizer;
 
 @Service
 public class EventService {
@@ -91,5 +94,27 @@ public class EventService {
 		return true;
 	}
 	
+	public boolean addOrganizer(AddOrganizer addOrganizer) {
+		
+		String emailId = addOrganizer.getEmailId().toString();  
+		String[] addMember = emailId.substring(1, emailId.length()-1).split(",");
+		Optional<EventDetails> eventDetails = eventDetailsRepository.findById(addOrganizer.getEventId());
+		
+		for(String member : addMember) {
+			member = member.replace("\"", "");	
+			Optional<UserDet> newOrganizer = userDetailsRepository.findAllByEmailid(member);	
+			if(!newOrganizer.isPresent()) {
+			
+		}
+		else {
+			
+			EventUserMapping eventUserMapping = new EventUserMapping(eventDetails.get(),newOrganizer.get());
+			eventUserMappingRepository.save(eventUserMapping);		
+		}
+		
+	}
+		return true;
 	
+	
+}
 }

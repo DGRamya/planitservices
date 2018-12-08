@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.planit.api.CreateDeleteEventApi;
 import com.planit.entity.EventDetails;
+import com.planit.model.AddOrganizer;
 import com.planit.model.ApiResponse;
 import com.planit.model.CreateEventRequest;
 import com.planit.model.DeleteEventRequest;
@@ -66,5 +67,14 @@ public class createDeleteEventController implements CreateDeleteEventApi{
 	public ResponseEntity<?> updateEvent(@CurrentUser UserPrincipal userPrincipal, @RequestBody EventDetails eventDetails) {
 		eventService.updateEventDetails(eventDetails);
 		return ResponseEntity.ok(new ApiResponse(true, "Event updated Successfully"));
+	}
+
+	@Override
+	@PreAuthorize("hasRole('USER')")
+	public ResponseEntity<?> addOrganizer(@CurrentUser UserPrincipal userPrincipal, @RequestBody AddOrganizer addOrganizer) {
+		if(eventService.addOrganizer(addOrganizer))
+		return ResponseEntity.ok(new ApiResponse(true, "Organizer updated Successfully"));
+		else
+		return ResponseEntity.ok(new ApiResponse(false, "No user exists for the given mail ID"));
 	}
 }

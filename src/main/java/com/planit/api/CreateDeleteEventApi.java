@@ -22,6 +22,7 @@ import com.planit.model.EventsList;
 import com.planit.model.GetEventRequest;
 import com.planit.security.UserPrincipal;
 import com.planit.service.CurrentUser;
+import com.planit.model.AddOrganizer;
 
 @CrossOrigin
 @RestController
@@ -42,5 +43,8 @@ public interface CreateDeleteEventApi {
 	
 	@PostMapping(path = "/update", produces = "application/json")
 	public ResponseEntity<?> updateEvent(@CurrentUser UserPrincipal userPrincipal, @RequestBody EventDetails eventDetails);
+	
+	@PostMapping(path = "/addOrganizer", produces = "application/json")
+	public ResponseEntity<?> addOrganizer(@CurrentUser UserPrincipal userPrincipal, @RequestBody AddOrganizer addOrganizer );
 	
 }

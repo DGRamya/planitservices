@@ -65,7 +65,7 @@ public class createDeleteEventController implements CreateDeleteEventApi{
 	@Override
 	@PreAuthorize("hasRole('USER')")
 	public ResponseEntity<?> updateEvent(@CurrentUser UserPrincipal userPrincipal, @RequestBody EventDetails eventDetails) {
-		eventService.updateEventDetails(eventDetails);
+		eventService.updateEventDetails(userPrincipal.getId(), eventDetails);
 		return ResponseEntity.ok(new ApiResponse(true, "Event updated Successfully"));
 	}
 

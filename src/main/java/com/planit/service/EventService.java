@@ -89,8 +89,11 @@ public class EventService {
 		return events;
 	}
 	
-	public boolean updateEventDetails(EventDetails eventDetails) {
+	public boolean updateEventDetails(UUID userId, EventDetails eventDetails) {
+		UserDet userdetails = getUserDetails(userId);
 		eventDetailsRepository.save(eventDetails);
+		EventUserMapping eventUserMapping = new EventUserMapping(eventDetails,userdetails);
+		eventUserMappingRepository.save(eventUserMapping);
 		return true;
 	}
 	
